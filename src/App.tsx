@@ -43,6 +43,10 @@ function App() {
         placeholder='Buscar...'
         icon={<Search />}
       />
+      <Input
+        placeholder='Buscar...'
+        icon={<Search />}
+      />
       <CategoriesPanel />
       <div className="p-6">
         <button
