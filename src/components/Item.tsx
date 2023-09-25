@@ -85,12 +85,12 @@ function Item(props: ItemProps) {
                 </div>
               </>
               : <>
-                <button
+                {/* <button
                   className='px-2 py-1 rounded-xl border text-pistachio-600 border-pistachio-600 focus:outline-none hover:bg-pistachio-600 hover:text-white transition duration-300'
                   onClick={() => { addCartItem(props.data) }}
                 >
                   <Plus />
-                </button>
+                </button> */}
                 <div
                   className='pb-4'
                 >
