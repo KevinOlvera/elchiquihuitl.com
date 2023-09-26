@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import range from 'lodash/range'
 
-import { ArrowLeft, ArrowRight } from './Icons'
+import { ChevronLeftIcon, ChevronRightIcon, PauseCircleIcon, PlayCircleIcon } from './common/Icons'
+
+// FIXME: The transition of the ChevronLeftIcon and ChevronRightIcon is not working properly
+// PENDING: Add a prop to change the size of the slider
 
 interface SliderProps {
   images: string[]
+  time?: number | 5000
 }
 
 function Slider(props: SliderProps) {
@@ -39,13 +43,20 @@ function Slider(props: SliderProps) {
     return () => { window.removeEventListener('keydown', handleKeyDown) }
   }, [currentImage])
 
+  const [timer, setTimer] = useState(true)
+
+  const handleTimer = () => {
+    setTimer(!timer)
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
+      if (!timer) return
       nextSlide()
-    }, 5000)
+    }, props.time)
 
     return () => { clearInterval(interval) }
-  }, [currentImage])
+  }, [currentImage, timer])
 
   return (
     <>
@@ -56,7 +67,7 @@ function Slider(props: SliderProps) {
             {
               props.images.map((image, index) => (
                 <img
-                  key={index}
+                  key={'slider-image-' + index}
                   className="absolute inset-0 w-full h-full object-cover object-center transform duration-300 ease-in-out"
                   src={image + '?' + size}
                   style={{
@@ -72,21 +83,27 @@ function Slider(props: SliderProps) {
               onClick={() => { prevSlide() }}
               className="absolute inset-y-0 left-0 z-10 px-4 py-6 text-white bg-gradient-to-r from-black/10 to-transparent hover:from-black/20 hover:to-transparent focus:outline-none"
             >
-              <ArrowLeft />
+              <ChevronLeftIcon />
             </button>
 
             <button
               onClick={() => { nextSlide() }}
               className="absolute inset-y-0 right-0 z-10 px-4 py-6 text-white bg-gradient-to-l from-black/10 to-transparent hover:from-black/20 hover:to-transparent focus:outline-none"
             >
-              <ArrowRight />
+              <ChevronRightIcon />
             </button>
 
-            <div className="absolute inset-x-0 bottom-0 flex justify-center space-x-2 m-4">
+            <div className="absolute inset-x-0 bottom-0 flex justify-center items-center space-x-2 m-4">
+              <button
+                className='text-gray-100 transition duration-500 ease-in-out p-0 m-0 focus:outline-none opacity-50 hover:opacity-100 hover:scale-110 transform'
+                onClick={() => { handleTimer() }}
+              >
+                {!timer ? <PlayCircleIcon className='w-5 h-5' /> : <PauseCircleIcon className='w-5 h-5' />}
+              </button>
               {range(props.images.length).map((index) => (
-                <span
+                <button
                   key={index}
-                  className="w-6 h-1 bg-gray-100 rounded cursor-pointer transition duration-500 ease-in-out"
+                  className="w-6 h-1 bg-gray-100 rounded transition duration-500 ease-in-out"
                   onClick={() => { goToSlide(index) }}
                   style={{
                     opacity: currentImage === index ? 1 : 0.5
@@ -96,7 +113,7 @@ function Slider(props: SliderProps) {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }
