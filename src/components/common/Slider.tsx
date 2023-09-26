@@ -91,11 +91,10 @@ function Slider(props: SliderProps) {
 
   return (
     <>
-      {touched ? <>End</> : <>Start</>}
       <div className="w-full p-4">
         <div className="max-w-screen-xl mx-auto relative overflow-hidden">
           <div
-            className="relative h-[40vh] lg:h-[80vh] bg-black bg-opacity-30 rounded-xl overflow-hidden"
+            className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] bg-black bg-opacity-30 rounded-xl overflow-hidden"
             onTouchStart={() => { setTouched(true) }}
           >
 
