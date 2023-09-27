@@ -1,6 +1,10 @@
-import { useCartItemActions } from '../hooks/useCartItemActions'
+/* import { useCartItemActions } from '../hooks/useCartItemActions' */
+
+import { Button, Image } from '@nextui-org/react'
+
+import { ClockIcon, FireIcon, MinusIcon, PlusIcon, StartIcon, TrashIcon } from './common/Icons'
+import PriceText from './common/PriceText'
 import { type MenuItem } from '../types'
-import { Clock, Minus, Plus, Trash } from './Icons'
 
 interface ItemProps {
   data: MenuItem
@@ -9,13 +13,69 @@ interface ItemProps {
 }
 
 function Item(props: ItemProps) {
-  const { addCartItem } = useCartItemActions()
-
+  /*   const { addCartItem } = useCartItemActions() */
   return (
     <div
-      className="flex justify-between space-x-4 border-b pb-6 border-gray-200 py-2"
+      className="flex flex-col space-y-4"
     >
-      <img
+      <div className="flex space-x-4">
+        <Image
+          alt={props.data.name}
+          /* Bordered or non */
+          className="object-cover object-center border border-gray-200 dark:border-gray-500"
+          width={96}
+          height={96}
+          src={props.data.image}
+          isBlurred={false}
+        />
+        <div className='flex flex-col w-full space-y-2'>
+          <div className='flex justify-between'>
+            <span className='text-sm font-semibold text-gray-500 dark:text-gray-200'>{props.data.name}</span>
+            {
+              (props.data.time != null)
+                ? <span className='flex items-center justify-end text-sm text-gray-400'>
+                  <ClockIcon className='w-4 h-4 mr-1' /> {props.data.time} min
+                </span>
+                : ''
+            }
+          </div>
+          <span className='text-sm text-gray-500 line-clamp-3'>
+            {props.data.description}
+          </span>
+        </div>
+      </div>
+      <div className="flex justify-between items-center">
+        <PriceText
+          value={props.data.price}
+          currency='MXN'
+        />
+        <span className='flex text-sm items-center text-gray-500'>
+          <StartIcon className='w-4 h-4 mr-1 text-warning-500' /> 4.5
+        </span>
+        <span className='flex text-sm items-center text-gray-500'>
+          <FireIcon className='w-4 h-4 mr-1 text-danger-500' /> 86 kcal
+        </span>
+        <div className='flex items-center'>
+          <Button
+            variant='light'
+            size='sm'
+            isIconOnly
+          >
+            <MinusIcon className='w-4 h-4' />
+          </Button>
+          <span className="text-gray-600 dark:text-white w-10 text-center">
+            {props.quantity}
+          </span>
+          <Button
+            variant='light'
+            size='sm'
+            isIconOnly
+          >
+            <PlusIcon className='w-4 h-4' />
+          </Button>
+        </div>
+      </div>
+      {/* <img
         className="w-24 h-24 rounded-xl object-cover object-center border border-gray-200"
         src={props.data.image}
         style={{
@@ -34,80 +94,64 @@ function Item(props: ItemProps) {
           <span className="text-sm text-gray-500 line-clamp-3">
             {props.data.description}
           </span>
-          {
-            props.inCart
-              ? <>
-                <hr />
-                <span className='flex items-center py-2 text-sm text-gray-400'>
-                  <Clock /> &nbsp; 15 - 20 min
-                </span>
-              </>
-              : ''
-          }
         </div>
         <div
-          className='flex flex-col items-center justify-between'
+          className='flex flex-col items-right justify-center space-y-2'
         >
           {
             props.inCart
               ? <>
-                <div>
-                  <span className="text-gray-600">
-                    {props.data.price.toFixed(2).split('.')[0]}
-                  </span>
-                  <span className="text-sm text-gray-400">
-                    .{props.data.price.toFixed(2).split('.')[1]}&nbsp;
-                  </span>
-                  <span className="text-sm text-gray-400">
-                    MXN
-                  </span>
-                </div>
-                <button
-                  className='px-2 py-1 rounded-xl border text-[#dc2626] border-[#dc2626] focus:outline-none hover:bg-[#dc2626] hover:text-white transition duration-300'
-                >
-                  <Trash />
-                </button>
+                {
+                  (props.data.time != null)
+                    ? <span className='flex items-center justify-end text-sm text-gray-400'>
+                      <ClockIcon className='w-4 h-4 mr-1' /> {props.data.time} min
+                    </span>
+                    : ''
+                }
+                <PriceText
+                  value={props.data.price}
+                  currency='MXN'
+                  className='text-right'
+                />
                 <div
-                  className='flex space-x-2 py-2'
+                  className='flex items-center justify-center space-x-2'
                 >
-                  <button
-                    className='disabled:opacity-50 disabled:cursor-not-allowed'
-                    disabled={props.quantity <= 1}
+                  <Button
+                    variant='light'
+                    size='sm'
+                    isIconOnly
                   >
-                    <Minus />
-                  </button>
+                    <MinusIcon className='w-4 h-4' />
+                  </Button>
                   <span className="text-gray-600">
                     {props.quantity}
                   </span>
-                  <button>
-                    <Plus />
-                  </button>
+                  <Button
+                    variant='light'
+                    size='sm'
+                    isIconOnly
+                  >
+                    <PlusIcon className='w-4 h-4' />
+                  </Button>
                 </div>
               </>
               : <>
-                {/* <button
-                  className='px-2 py-1 rounded-xl border text-pistachio-600 border-pistachio-600 focus:outline-none hover:bg-pistachio-600 hover:text-white transition duration-300'
-                  onClick={() => { addCartItem(props.data) }}
+                <Button
+                  color='primary'
+                  variant='flat'
+                  size='sm'
+                  isIconOnly
                 >
-                  <Plus />
-                </button> */}
-                <div
-                  className='pb-4'
-                >
-                  <span className="text-gray-600 text-sm">
-                    {props.data.price.toFixed(2).split('.')[0]}
-                  </span>
-                  <span className="text-xs text-gray-400">
-                    .{props.data.price.toFixed(2).split('.')[1]}&nbsp;
-                  </span>
-                  <span className="text-xs text-gray-400">
-                    MXN
-                  </span>
-                </div>
+                  <PlusIcon />
+                </Button>
+                <PriceText
+                  value={props.data.price}
+                  currency='MXN'
+                />
               </>
           }
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
