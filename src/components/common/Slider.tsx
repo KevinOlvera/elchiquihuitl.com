@@ -32,13 +32,13 @@ function Slider(props: SliderProps) {
   const [touched, setTouched] = useState(false)
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    /* const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
         prevSlide()
       } else if (event.key === 'ArrowRight') {
         nextSlide()
       }
-    }
+    } */
 
     const handleTouchStart = (event: TouchEvent) => {
       const x = event.touches[0].clientX
@@ -62,14 +62,14 @@ function Slider(props: SliderProps) {
       window.addEventListener('touchmove', handleTouchMove)
     }
 
-    window.addEventListener('keydown', handleKeyDown)
+    /* window.addEventListener('keydown', handleKeyDown) */
     if (touched) {
       window.addEventListener('touchstart', handleTouchStart)
       setTouched(false)
     }
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
+      /* window.removeEventListener('keydown', handleKeyDown) */
       window.removeEventListener('touchstart', handleTouchStart)
     }
   }, [currentImage, touched])
