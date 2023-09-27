@@ -15,7 +15,7 @@ export const store = configureStore({
   reducer: {
     cartItems: cartItemsReducer
   },
-  middleware: [persistanceLocalStorageMiddleware]
+  middleware: [/* persistanceLocalStorageMiddleware */]
 })
 
 export type RootState = ReturnType<typeof store.getState>
