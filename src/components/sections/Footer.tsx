@@ -11,7 +11,7 @@ function Footer() {
         </div>
         <div className="flex space-x-4">
           <span className="flex text-sm text-gray-400 items-center">
-            Made with&nbsp;<HeartIcon className='w-4 h-4' />&nbsp;by&nbsp;<a href="https://kevinolvera.com" target="_blank" className="text-pistachio-600 text-sm">Kevin Olvera</a>
+            Made with&nbsp;<HeartIcon className='w-4 h-4' />&nbsp;by&nbsp;<a href="https://kevinolvera.com" target="_blank" className="text-citron text-sm">Kevin Olvera</a>
           </span>
         </div>
       </div>
