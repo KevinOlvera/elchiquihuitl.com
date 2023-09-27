@@ -1,79 +1,68 @@
+const { nextui } = require("@nextui-org/react");
+const colors = require('tailwindcss/colors')
+
+const myColors = {
+  'citron': {
+    '50': '#fdfde8',
+    '100': '#f7facd',
+    '200': '#eff5a1',
+    '300': '#e1ec6a',
+    '400': '#cedf3c',
+    '500': '#a4b71b',
+    DEFAULT: '#a4b71b',
+    '600': '#8a9d13',
+    '700': '#687813',
+    '800': '#535f15',
+    '900': '#465116',
+    '950': '#242c07',
+    lightBackground: '#fdfde8',
+    lightForeground: '#fdfde8',
+    darkBackground: '#242c07',
+    darkForeground: '#242c07',
+  }
+}
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      'white': '#ffffff',
-      'black': '#000000',
-      'gray': {
-        '50': '#f9fafb',
-        '100': '#f4f5f7',
-        '200': '#e5e7eb',
-        '300': '#d2d6dc',
-        '400': '#9fa6b2',
-        '500': '#6b7280',
-        '600': '#4b5563',
-        '700': '#374151',
-        '800': '#252f3f',
-        '900': '#161e2e',
-      },
-      'saffron': {
-        '50': '#fefbec',
-        '100': '#fcf4c9',
-        '200': '#f8e68f',
-        '300': '#f5d454',
-        '400': '#f2c22f',
-        DEFAULT: '#f2c22f',
-        '500': '#eba215',
-        '600': '#d07c0f',
-        '700': '#ad5910',
-        '800': '#8c4514',
-        '900': '#743913',
-        '950': '#421d06',
-      },
-      'mondo': {
-        '50': '#f5f6f0',
-        '100': '#e9e9d8',
-        '200': '#d3d4b4',
-        '300': '#bbba89',
-        '400': '#a8a467',
-        '500': '#999259',
-        '600': '#83794b',
-        '700': '#6a5e3e',
-        '800': '#5a4f39',
-        '900': '#4d4333',
-        '950': '#2c251c',
-      },
-      'pistachio': {
-        '50': '#ffffe6',
-        '100': '#fdfec9',
-        '200': '#f8fc9a',
-        '300': '#edf660',
-        '400': '#ddec2f',
-        '500': '#c0d210',
-        '600': '#a3b609',
-        '700': '#707f0c',
-        '800': '#59650f',
-        '900': '#4a5512',
-        '950': '#272f04',
-      },
-    },
     extend: {
+      colors: myColors,
       fontFamily: {
         sans: ['Open Sans', 'sans-serif'],
         serif: ['Open Sans', 'serif'],
-      },
-      colors: {
-        primary: "#f2c22f",
-        secondary: "#282531",
-      },
+      }
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [
+    nextui({
+      addCommonColors: true,
+      themes: {
+        light: {
+          colors: {
+            /* background: myColors.citron.lightBackground, */
+            primary: {
+              DEFAULT: myColors.citron[600],
+              /* foreground: myColors.citron.lightForeground */
+            },
+          },
+        },
+        dark: {
+          colors: {
+            /* background: myColors.citron.darkBackground, */
+            primary: {
+              DEFAULT: myColors.citron[400],
+              /* foreground: myColors.citron.darkForeground, */
+            },
+          },
+        },
+      }
+    })
+  ],
 }
 
