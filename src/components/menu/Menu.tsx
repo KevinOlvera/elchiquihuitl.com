@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-
-import Item from '../Item'
 import { Button, Card, CardBody, Divider, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tab, Tabs, useDisclosure } from '@nextui-org/react'
-import { type Category, type MenuItem } from '../../types'
-import { FunnelIcon, SearchIcon } from '../common/Icons'
-import { useAppSelector } from '../../hooks/store'
+
+import Item from './Item'
 import QuantityControl from '../common/QuantityControl'
+import { useAppSelector } from '../../hooks/store'
 import { useCartItemActions } from '../../hooks/useCartItemActions'
+import { type Category, type MenuItem } from '../../types'
+
+import { FunnelIcon, SearchIcon } from '../common/Icons'
 
 const categories: Category[] = [
   {
@@ -398,80 +399,6 @@ function Menu() {
             )}
           </ModalContent>
         </Modal>
-
-        {/* <div
-                  key={'menu-item' + item.id}
-                  className="flex space-x-4 justify-between p-4 transition duration-300 border-t"
-                  style={{
-                    display: currentCategory === category.category ? 'flex' : 'none'
-                  }}
-                >
-                  <img
-                    className="w-24 h-24 rounded-xl object-cover object-center border border-gray-200"
-                    src={item.image}
-                    style={{
-                      pointerEvents: 'none'
-                    }}
-                  />
-                  <div className="flex flex-col space-y-2 w-full">
-                    <span className="text-sm font-semibold text-gray-500">
-                      {item.name}
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      {item.description}
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center space-y-4">
-                    <button
-                      className='px-2 py-1 rounded-xl border text-citron border-citron focus:outline-none hover:bg-citron hover:text-white transition duration-300'
-                      onClick={() => { addToCart(item) }}
-                    >
-                      <Plus />
-                    </button>
-                    <div>
-                      <span className="text-gray-600">
-                        {item.price.toFixed(2).split('.')[0]}
-                      </span>
-                      <span className="text-sm text-gray-400">
-                        .{item.price.toFixed(2).split('.')[1]}&nbsp;
-                      </span>
-                      <span className="text-sm text-gray-400">
-                        MXN
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  {
-                    (cart.find((cartItem) => cartItem.name === item.name) != null)
-                      ? <div className="text-sm space-x-2 flex px-4 py-2 items-center justify-center text-gray-400" key={'cart-controls' + item.id}>
-                        <Clock />
-                        <span className="text-sm">15 - 20 min</span>
-                        <button
-                          onClick={() => { removeFromCart(item) }}
-                          style={
-                            cart.find((cartItem) => cartItem.quantity === 1) != null
-                              ? {
-                                pointerEvents: 'none'
-                              }
-                              : {}
-                          }
-                        >
-                          <Minus />
-                        </button>
-                        <span className='text-gray-600'>
-                          {cart.find((cartItem) => cartItem.name === item.name)?.quantity}
-                        </span>
-                        <button
-                          onClick={() => { addToCart(item) }}
-                          className='text-gray-600'
-                        >
-                          <Plus />
-                        </button>
-                      </div>
-                      : ''
-                  }
-                </div> */}
       </div >
     </>
   )
