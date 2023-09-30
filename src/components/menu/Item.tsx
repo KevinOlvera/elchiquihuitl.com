@@ -1,12 +1,11 @@
-/* import { useCartItemActions } from '../hooks/useCartItemActions' */
-
+import { useState } from 'react'
 import { Button, Image, Skeleton } from '@nextui-org/react'
 
-import { ClockIcon, FireIcon, PencilSquareIcon, PlusIcon, StartIcon } from './common/Icons'
-import PriceText from './common/PriceText'
-import { type MenuItem } from '../types'
-import { useState } from 'react'
-import QuantityControl from './common/QuantityControl'
+import PriceText from '../common/PriceText'
+import QuantityControl from '../common/QuantityControl'
+import { type MenuItem } from '../../types'
+
+import { ClockIcon, FireIcon, PencilSquareIcon, PlusIcon, StartIcon } from '../common/Icons'
 
 interface ItemProps {
   data: MenuItem
