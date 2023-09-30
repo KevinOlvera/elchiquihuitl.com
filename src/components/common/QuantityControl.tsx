@@ -9,7 +9,7 @@ interface QuantityControlProps {
 
 function QuantityControl(props: QuantityControlProps) {
   return (
-    <>
+    <div className='flex items-center'>
       <Button
         variant='light'
         size='sm'
@@ -29,7 +29,7 @@ function QuantityControl(props: QuantityControlProps) {
       >
         <PlusIcon className='w-4 h-4' />
       </Button>
-    </>
+    </div>
   )
 }
 

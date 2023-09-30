@@ -1,10 +1,11 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, NavbarMenuToggle, NavbarMenuItem, NavbarMenu } from '@nextui-org/react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, useDisclosure } from '@nextui-org/react'
 
 import { ShoppingCartIcon } from '../common/Icons'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { LOGO_DARK, LOGO_LIGHT } from '../../consts'
 import ThemeSwitcher from '../common/ThemeSwitcher'
+import Cart from '../menu/Cart'
 
 function Navigation() {
   const { theme } = useTheme()
@@ -31,6 +32,8 @@ function Navigation() {
     }
   }, [theme])
 
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
   return (
     <>
       <Navbar>
@@ -56,7 +59,7 @@ function Navigation() {
           </NavbarBrand>
         </NavbarContent>
 
-        {/* <NavbarContent className="hidden md:flex gap-4" justify="center">
+        <NavbarContent className="hidden md:flex gap-4" justify="center">
           <NavbarItem>
             <Link color="foreground" href="#">
               Features
@@ -72,11 +75,11 @@ function Navigation() {
               Integrations
             </Link>
           </NavbarItem>
-        </NavbarContent> */}
+        </NavbarContent>
 
         <NavbarContent justify="end">
           <NavbarItem>
-            <Button isIconOnly color="primary" variant="flat">
+            <Button isIconOnly color="primary" variant="flat" onPress={onOpen}>
               <ShoppingCartIcon />
             </Button>
           </NavbarItem>
@@ -100,6 +103,10 @@ function Navigation() {
           ))}
         </NavbarMenu>
       </Navbar>
+      <Cart
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+      />
     </>
   )
 }

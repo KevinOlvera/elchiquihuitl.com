@@ -21,7 +21,7 @@ export const cartItemSlice = createSlice({
         state[index].quantity += 1
       }
     },
-    removeItem: (state, action: PayloadAction<MenuItem>) => {
+    subItem: (state, action: PayloadAction<MenuItem>) => {
       const index = state.findIndex((item) => item.id === action.payload.id)
       if (index !== -1) {
         if (state[index].quantity === 1) {
@@ -30,10 +30,16 @@ export const cartItemSlice = createSlice({
           state[index].quantity -= 1
         }
       }
+    },
+    removeItem: (state, action: PayloadAction<MenuItem>) => {
+      const index = state.findIndex((item) => item.id === action.payload.id)
+      if (index !== -1) {
+        state.splice(index, 1)
+      }
     }
   }
 })
 
 export default cartItemSlice.reducer
 
-export const { addItem, removeItem } = cartItemSlice.actions
+export const { addItem, subItem, removeItem } = cartItemSlice.actions

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import { Button, Card, CardBody, Divider, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tab, Tabs, useDisclosure } from '@nextui-org/react'
+import { Button, Card, CardBody, Divider, Input, Tab, Tabs, useDisclosure } from '@nextui-org/react'
 
 import Item from './Item'
-import QuantityControl from '../common/QuantityControl'
 import { useAppSelector } from '../../hooks/store'
 import { useCartItemActions } from '../../hooks/useCartItemActions'
 import { type Category, type MenuItem } from '../../types'
 
 import { FunnelIcon, SearchIcon } from '../common/Icons'
+import Cart from './Cart'
 
 const categories: Category[] = [
   {
@@ -269,7 +269,7 @@ function Menu() {
 
   const cartItems = useAppSelector((state) => state.cartItems)
 
-  const { addCartItem, removeCartItem } = useCartItemActions()
+  const { addCartItem, subCartItem } = useCartItemActions()
 
   return (
     <>
@@ -335,7 +335,7 @@ function Menu() {
                         data={item}
                         quantity={cartItems.find((cartItem) => cartItem.name === item.name)?.quantity ?? 0}
                         onAdd={() => { addCartItem(item) }}
-                        onRemove={() => { removeCartItem(item) }}
+                        onRemove={() => { subCartItem(item) }}
                       />
                       <Divider className="my-4" />
                     </div>
@@ -355,50 +355,10 @@ function Menu() {
           Ver Resumen
         </Button>
 
-        <Modal
+        <Cart
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          placement='auto'
-          scrollBehavior='inside'
-          backdrop='blur'
-        >
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">Carrito</ModalHeader>
-                <ModalBody>
-                  <>
-                    {cartItems.map((item) => (
-                      <div
-                        key={'cart-item-' + item.id}
-                        className=' flex flex-col'
-                      >
-                        <div className="flex">
-                          <p>{item.name}</p>
-                          <p>{item.price}</p>
-                        </div>
-                        <p>{item.quantity}</p>
-                        <QuantityControl
-                          quantity={item.quantity}
-                          onAdd={() => { console.log('add' + item.id) }}
-                          onSub={() => { console.log('remove' + item.id) }}
-                        />
-                      </div>
-                    ))}
-                  </>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="light" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Action
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
+        />
       </div >
     </>
   )
