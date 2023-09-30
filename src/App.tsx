@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { Toaster } from 'sonner'
+import { Analytics } from '@vercel/analytics/react'
 
 import Navigation from './components/sections/Navigation'
 import Footer from './components/sections/Footer'
@@ -16,6 +17,7 @@ function App() {
       </Routes>
       <Footer />
       <Toaster richColors />
+      <Analytics />
     </>
   )
 }
