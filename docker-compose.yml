@@ -1,0 +1,6 @@
+version: '3'
+services:
+  app:
+    image: menuonline-app:latest
+    ports:
+      - 80:80

@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# OTHER Files
+menuonline_app_latest.tar
