@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import Item from '../Item'
-import { Card, CardBody, Divider, Input, Tab, Tabs } from '@nextui-org/react'
+import { Button, Card, CardBody, Divider, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Tab, Tabs, useDisclosure } from '@nextui-org/react'
 import { type Category, type MenuItem } from '../../types'
 import { FunnelIcon, SearchIcon } from '../common/Icons'
-/* import { useAppSelector } from '../../hooks/store' */
+import { useAppSelector } from '../../hooks/store'
+import QuantityControl from '../common/QuantityControl'
+import { useCartItemActions } from '../../hooks/useCartItemActions'
 
 const categories: Category[] = [
   {
@@ -51,7 +53,7 @@ const categories: Category[] = [
   }
 ]
 
-const menuItems: MenuItem[] = [
+const data: MenuItem[] = [
   {
     id: '1',
     name: 'Hamburguesa sencilla',
@@ -229,41 +231,59 @@ const menuItems: MenuItem[] = [
 ]
 
 function Menu() {
-  const [currentCategory, setCurrentCategory] = useState<string>()
+  const [currentCategory, setCurrentCategory] = useState('')
 
   useEffect(() => {
     setCurrentCategory(categories[0].id)
   }, [])
 
-  const [search, setSearch] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(data)
+
+  const filterByCategory = (category: string) => {
+    setMenuItems(data.filter((item) => item.category === category))
+  }
+
+  const filterBySearch = (search: string) => {
+    if (search === '') {
+      setMenuItems([])
+      return
+    }
+    setMenuItems(data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()) || item.description.toLowerCase().includes(search.toLowerCase())))
+  }
 
   useEffect(() => {
-    console.log(search)
-  }, [search])
+    setMenuItems(data)
+    if (currentCategory === 'filter') {
+      filterBySearch(search)
+    } else if (currentCategory === 'all') {
+      setMenuItems(data)
+    } else {
+      filterByCategory(currentCategory)
+    }
+  }, [currentCategory, search])
 
-  /*   const cartItems = useAppSelector((state) => state.cartItems) */
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
+  const cartItems = useAppSelector((state) => state.cartItems)
+
+  const { addCartItem, removeCartItem } = useCartItemActions()
 
   return (
     <>
-      <div className=" flex flex-col p-4 space-y-4">
-        <Input
-          placeholder="Buscar..."
-          size="lg"
-          startContent={<SearchIcon size={18} />}
-          type="search"
-          variant='flat'
-        />
-
+      <div className=" flex flex-col p-4 space-y-4 items-center">
         <Tabs
           aria-label="Categories tabs"
           color='primary'
           variant='solid'
           size='md'
-          className='overflow-x-auto flex'
+          className='overflow-x-auto flex w-full justify-center'
           disabledKeys={
-            categories.filter((category) => category.status === 'unavailable').map((category) => category.id).concat(['filter'])
+            categories.filter((category) => category.status === 'unavailable').map((category) => category.id)
           }
-          onSelectionChange={(item) => { setCurrentCategory(item) }}
+          onSelectionChange={(item) => { setCurrentCategory(item.toString()) }}
+          defaultSelectedKey={categories[0].id}
         >
           <Tab
             key={'filter'}
@@ -286,24 +306,98 @@ function Menu() {
           </Tab>
         </Tabs>
 
-        <Card isBlurred className='mt-4 border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]'>
+        {
+          currentCategory === 'filter'
+            ? <Input
+              placeholder="Buscar..."
+              size="md"
+              startContent={<SearchIcon size={18} />}
+              type="search"
+              variant='flat'
+              onChange={(e) => { setSearch(e.target.value) }}
+              value={search}
+              className='w-full'
+            />
+
+            : ''
+        }
+
+        <Card isBlurred className='mt-4 border-none bg-background/60 dark:bg-default-100 w-full'>
           <CardBody className='flex space-y-4'>
             {
-              menuItems.filter((item) => currentCategory === 'all' || item.category === currentCategory).map((item) => (
-                <div key={'page-item-' + item.name.replace(' ', '-').toLowerCase()}>
-                  <Item
-                    data={item}
-                    /* inCart={cartItems.find((cartItem) => cartItem.name === item.name) != null}
-              quantity={cartItems.find((cartItem) => cartItem.name === item.name)?.quantity ?? 0} */
-                    inCart={true}
-                    quantity={4}
-                  />
-                  <Divider className="my-4" />
-                </div>
-              ))
+              menuItems.length === 0
+                ? (<span>No se encontraron resultados</span>)
+                : (
+                  menuItems.map((item) => (
+                    <div key={'page-item-' + item.name.replace(' ', '-').toLowerCase()}>
+                      <Item
+                        data={item}
+                        quantity={cartItems.find((cartItem) => cartItem.name === item.name)?.quantity ?? 0}
+                        onAdd={() => { addCartItem(item) }}
+                        onRemove={() => { removeCartItem(item) }}
+                      />
+                      <Divider className="my-4" />
+                    </div>
+                  ))
+                )
             }
           </CardBody>
-        </Card>
+        </Card >
+
+        <Button
+          color='primary'
+          variant='flat'
+          size='lg'
+          className='w-full'
+          onPress={onOpen}
+        >
+          Ver Resumen
+        </Button>
+
+        <Modal
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          placement='auto'
+          scrollBehavior='inside'
+          backdrop='blur'
+        >
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">Carrito</ModalHeader>
+                <ModalBody>
+                  <>
+                    {cartItems.map((item) => (
+                      <div
+                        key={'cart-item-' + item.id}
+                        className=' flex flex-col'
+                      >
+                        <div className="flex">
+                          <p>{item.name}</p>
+                          <p>{item.price}</p>
+                        </div>
+                        <p>{item.quantity}</p>
+                        <QuantityControl
+                          quantity={item.quantity}
+                          onAdd={() => { console.log('add' + item.id) }}
+                          onSub={() => { console.log('remove' + item.id) }}
+                        />
+                      </div>
+                    ))}
+                  </>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onPress={onClose}>
+                    Action
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
 
         {/* <div
                   key={'menu-item' + item.id}

@@ -1,13 +1,17 @@
-import { addNewCartItem } from '../store/cartItems/slice'
-import { type CartItem } from '../types'
+import { addItem, removeItem } from '../store/cartItems/slice'
+import { type MenuItem } from '../types'
 import { useAppDispatch } from './store'
 
 export const useCartItemActions = () => {
   const dispatch = useAppDispatch()
 
-  const addCartItem = ({ name, description, price, image, quantity }: CartItem) => {
-    dispatch(addNewCartItem({ name, description, price, image, quantity }))
+  const addCartItem = (item: MenuItem) => {
+    dispatch(addItem(item))
   }
 
-  return { addCartItem }
+  const removeCartItem = (item: MenuItem) => {
+    dispatch(removeItem(item))
+  }
+
+  return { addCartItem, removeCartItem }
 }
