@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks/store'
 import { useCartItemActions } from '../../hooks/useCartItemActions'
 import { type Category, type MenuItem } from '../../types'
 
-import { FunnelIcon, SearchIcon } from '../common/Icons'
+import { SearchIcon } from '../common/Icons'
 import Cart from './Cart'
 
 const categories: Category[] = [
@@ -288,7 +288,7 @@ function Menu() {
         >
           <Tab
             key={'filter'}
-            title={<FunnelIcon className='w-4 h-4' />}
+            title={<SearchIcon className='w-4 h-4' />}
           >
           </Tab>
           {
@@ -312,7 +312,7 @@ function Menu() {
             ? <Input
               placeholder="Buscar..."
               size="md"
-              startContent={<SearchIcon size={18} />}
+              /* startContent={<FunnelIcon size={18} />} */
               type="search"
               variant='flat'
               onChange={(e) => { setSearch(e.target.value) }}

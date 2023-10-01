@@ -36,7 +36,7 @@ function Navigation() {
 
   return (
     <>
-      <Navbar>
+      <Navbar isBlurred={true} isBordered={false}>
         <NavbarContent className="md:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
@@ -59,15 +59,15 @@ function Navigation() {
           </NavbarBrand>
         </NavbarContent>
 
-        <NavbarContent className="hidden md:flex gap-4" justify="center">
+        <NavbarContent className="hidden md:flex gap-4 md:pl-4" justify="center">
+          <NavbarItem isActive>
+            <Link href="#" aria-current="page" color="warning">
+              Menú
+            </Link>
+          </NavbarItem>
           <NavbarItem>
             <Link color="foreground" href="#">
               Contáctanos
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link href="#" aria-current="page" color="warning">
-              Menu
             </Link>
           </NavbarItem>
           <NavbarItem>
@@ -86,9 +86,6 @@ function Navigation() {
         </NavbarContent>
 
         <NavbarMenu>
-          <NavbarItem>Cambiar Modo&nbsp;
-            <ThemeSwitcher />
-          </NavbarItem>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
@@ -100,6 +97,9 @@ function Navigation() {
               </Link>
             </NavbarMenuItem>
           ))}
+          <NavbarItem className='absolute bottom-0 right-0 m-4'>
+            <ThemeSwitcher />
+          </NavbarItem>
         </NavbarMenu>
       </Navbar>
       <Cart
