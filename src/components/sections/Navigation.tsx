@@ -12,16 +12,16 @@ function Navigation() {
   const [logo, setLogo] = useState(LOGO_LIGHT)
 
   const menuItems = [
-    'Registrarse',
-    'Iniciar Sesión',
+    /* 'Registrarse', */
+    /* 'Iniciar Sesión', */
     'Acerca de',
-    'Contáctanos',
-    'Preguntas Frecuentes',
-    'Información Alergénica',
-    'Términos de Servicio',
-    'Términos de Oferta',
-    'Aviso de Privacidad',
-    'Log Out'
+    'Contáctanos'
+    /* 'Preguntas Frecuentes', */
+    /* 'Información Alergénica', */
+    /* 'Términos de Servicio', */
+    /* 'Términos de Oferta', */
+    /* 'Aviso de Privacidad', */
+    /* 'Log Out' */
   ]
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function Navigation() {
 
   return (
     <>
-      <Navbar>
+      <Navbar isBlurred={true} isBordered={false}>
         <NavbarContent className="md:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
@@ -59,20 +59,20 @@ function Navigation() {
           </NavbarBrand>
         </NavbarContent>
 
-        <NavbarContent className="hidden md:flex gap-4" justify="center">
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Features
-            </Link>
-          </NavbarItem>
+        <NavbarContent className="hidden md:flex gap-4 md:pl-4" justify="center">
           <NavbarItem isActive>
             <Link href="#" aria-current="page" color="warning">
-              Customers
+              Menú
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link color="foreground" href="#">
-              Integrations
+              Contáctanos
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              Acerca de
             </Link>
           </NavbarItem>
         </NavbarContent>
@@ -86,21 +86,20 @@ function Navigation() {
         </NavbarContent>
 
         <NavbarMenu>
-          <NavbarItem>Cambiar Modo&nbsp;
-            <ThemeSwitcher />
-          </NavbarItem>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 className="w-full"
-                color={index === 2 ? 'warning' : index === menuItems.length - 1 ? 'danger' : 'foreground'}
-                href="#"
+                color={'foreground'}
                 size="lg"
               >
                 {item}
               </Link>
             </NavbarMenuItem>
           ))}
+          <NavbarItem className='absolute bottom-0 right-0 m-4'>
+            <ThemeSwitcher />
+          </NavbarItem>
         </NavbarMenu>
       </Navbar>
       <Cart
