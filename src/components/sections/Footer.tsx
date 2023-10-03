@@ -1,5 +1,5 @@
 import { Button, Link } from '@nextui-org/react'
-import { BurgerIcon, FacebookIcon, InstagramIcon, TikTokIcon, WhatsAppIcon, YouTubeIcon } from '../common/Icons'
+import { FacebookIcon, InstagramIcon, TikTokIcon, WhatsAppIcon, YouTubeIcon } from '../common/Icons'
 
 function Footer() {
   return (
@@ -71,7 +71,8 @@ function Footer() {
         </div>
         <div className="flex space-x-4">
           <span className="flex text-sm text-gray-400 items-center">
-            Made with&nbsp;<BurgerIcon className='w-3 h-3 text-gray-400' />&nbsp;by&nbsp;<a href="https://kevinolvera.com" target="_blank" className="text-citron text-sm">Kevin Olvera</a>
+            {/* Made with&nbsp;<BurgerIcon className='w-3 h-3 text-gray-400' />&nbsp;by&nbsp;<a href="https://kevinolvera.com" target="_blank" className="text-citron text-sm">Kevin Olvera</a> */}
+            powered by&nbsp;<a href="https://kevinolvera.com" target="_blank" className="text-citron text-sm">kevinolvera.com</a>
           </span>
         </div>
       </div>

@@ -12,13 +12,15 @@ const sliderImages = [
 
 function Home() {
   return (
-    <>
-      <Slider
-        images={sliderImages}
-        time={8000}
-      />
-      <Menu />
-    </>
+    <div className="flex justify-center">
+      <div className='w-full max-w-screen-xl p-6 pt-4 flex flex-col'>
+        <Slider
+          images={sliderImages}
+          time={8000}
+        />
+        <Menu />
+      </div>
+    </div>
   )
 }
 

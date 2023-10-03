@@ -19,7 +19,7 @@ function Item(props: ItemProps) {
 
   return (
     <div
-      className="flex flex-col space-y-4"
+      className="flex flex-col space-y-2"
     >
       <div className="flex space-x-4">
         <Skeleton isLoaded={isLoaded} className='rounded-xl'>
@@ -63,6 +63,7 @@ function Item(props: ItemProps) {
           <PriceText
             value={props.data.price}
             currency='MXN'
+            className='w-24'
           />
           <span className='flex text-sm items-center text-gray-500'>
             <StartIcon className='w-4 h-4 mr-1 text-warning-500' /> 4.5
@@ -72,7 +73,7 @@ function Item(props: ItemProps) {
           </span>
           {
             (props.quantity === 0)
-              ? <div className='flex items-center space-x-2'>
+              ? <div className='w-28 flex items-center justify-end space-x-2'>
                 <Button
                   isIconOnly
                   variant='flat'
@@ -91,7 +92,7 @@ function Item(props: ItemProps) {
                   <PlusIcon className='w-4 h-4' />
                 </Button>
               </div>
-              : <div className='flex items-center'>
+              : <div className='w-28 flex items-center justify-end'>
                 <QuantityControl
                   quantity={props.quantity}
                   onAdd={() => { props.onAdd() }}

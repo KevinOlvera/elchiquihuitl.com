@@ -272,8 +272,8 @@ function Menu() {
   const { addCartItem, subCartItem } = useCartItemActions()
 
   return (
-    <>
-      <div className=" flex flex-col p-4 space-y-4 items-center">
+    <div className='w-full'>
+      <div className="flex flex-col py-6 space-y-6">
         <Tabs
           aria-label="Categories tabs"
           color='primary'
@@ -310,7 +310,7 @@ function Menu() {
         {
           currentCategory === 'filter'
             ? <Input
-              placeholder="Buscar..."
+              placeholder="Busca tu platillo favorito ..."
               size="md"
               /* startContent={<FunnelIcon size={18} />} */
               type="search"
@@ -323,13 +323,13 @@ function Menu() {
             : ''
         }
 
-        <Card isBlurred className='mt-4 border-none bg-background/60 dark:bg-default-100 w-full'>
+        <Card isBlurred className='mt-4 border-none bg-background/60 dark:bg-default-100'>
           <CardBody className='flex space-y-4'>
             {
               menuItems.length === 0
                 ? (<span>No se encontraron resultados</span>)
                 : (
-                  menuItems.map((item) => (
+                  menuItems.map((item, index) => (
                     <div key={'page-item-' + item.name.replace(' ', '-').toLowerCase()}>
                       <Item
                         data={item}
@@ -337,7 +337,7 @@ function Menu() {
                         onAdd={() => { addCartItem(item) }}
                         onRemove={() => { subCartItem(item) }}
                       />
-                      <Divider className="my-4" />
+                      {index < menuItems.length - 1 && <Divider className="mt-6 mb-2" />}
                     </div>
                   ))
                 )
@@ -360,7 +360,7 @@ function Menu() {
           onOpenChange={onOpenChange}
         />
       </div >
-    </>
+    </div>
   )
 }
 
