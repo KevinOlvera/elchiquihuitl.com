@@ -5,7 +5,7 @@ import PriceText from '../common/PriceText'
 import QuantityControl from '../common/QuantityControl'
 import { type MenuItem } from '../../types'
 
-import { ClockIcon, FireIcon, PencilSquareIcon, PlusIcon, StartIcon } from '../common/Icons'
+import { ClockIcon, FireIcon, PlusIcon, StartIcon } from '../common/Icons'
 
 interface ItemProps {
   data: MenuItem
@@ -76,14 +76,6 @@ function Item(props: ItemProps) {
               ? <div className='w-28 flex items-center justify-end space-x-2'>
                 <Button
                   isIconOnly
-                  variant='flat'
-                  size='sm'
-                  className='hidden'
-                >
-                  <PencilSquareIcon className='w-4 h-4' />
-                </Button>
-                <Button
-                  isIconOnly
                   color='primary'
                   variant='flat'
                   size='sm'
@@ -97,7 +89,18 @@ function Item(props: ItemProps) {
                   quantity={props.quantity}
                   onAdd={() => { props.onAdd() }}
                   onSub={() => { props.onRemove() }}
+                  className='flex md:hidden'
                 />
+                <Button
+                  isIconOnly
+                  color='primary'
+                  variant='flat'
+                  size='sm'
+                  onClick={() => { props.onAdd() }}
+                  className='hidden md:flex'
+                >
+                  <PlusIcon className='w-4 h-4' />
+                </Button>
               </div>
           }
         </div>

@@ -7,6 +7,7 @@ import { useCartItemActions } from '../../hooks/useCartItemActions'
 import { type Category, type MenuItem } from '../../types'
 
 import { SearchIcon } from '../common/Icons'
+import CartModal from './CartModal'
 import Cart from './Cart'
 
 const categories: Category[] = [
@@ -323,39 +324,49 @@ function Menu() {
             : ''
         }
 
-        <Card isBlurred className='mt-4 border-none bg-background/60 dark:bg-default-100'>
-          <CardBody className='flex space-y-4'>
-            {
-              menuItems.length === 0
-                ? (<span>No se encontraron resultados</span>)
-                : (
-                  menuItems.map((item, index) => (
-                    <div key={'page-item-' + item.name.replace(' ', '-').toLowerCase()}>
-                      <Item
-                        data={item}
-                        quantity={cartItems.find((cartItem) => cartItem.name === item.name)?.quantity ?? 0}
-                        onAdd={() => { addCartItem(item) }}
-                        onRemove={() => { subCartItem(item) }}
-                      />
-                      {index < menuItems.length - 1 && <Divider className="mt-6 mb-2" />}
-                    </div>
-                  ))
-                )
-            }
-          </CardBody>
-        </Card >
+        <div className="flex flex-row space-x-6">
+
+          <div className='flex-auto'>
+            <Card isBlurred className='border-none bg-background/60 dark:bg-default-100'>
+              <CardBody className='flex space-y-4'>
+                {
+                  menuItems.length === 0
+                    ? (<span>No se encontraron resultados</span>)
+                    : (
+                      menuItems.map((item, index) => (
+                        <div key={'page-item-' + item.name.replace(' ', '-').toLowerCase()}>
+                          <Item
+                            data={item}
+                            quantity={cartItems.find((cartItem) => cartItem.name === item.name)?.quantity ?? 0}
+                            onAdd={() => { addCartItem(item) }}
+                            onRemove={() => { subCartItem(item) }}
+                          />
+                          {index < menuItems.length - 1 && <Divider className="mt-6 mb-2" />}
+                        </div>
+                      ))
+                    )
+                }
+              </CardBody>
+            </Card >
+          </div>
+
+          <div className='flex-auto lg:w-40 hidden md:block max-w-xs'>
+            <Cart />
+          </div>
+
+        </div>
 
         <Button
           color='primary'
           variant='flat'
           size='lg'
-          className='w-full'
+          className='w-full md:hidden flex'
           onPress={onOpen}
         >
           Ver Resumen
         </Button>
 
-        <Cart
+        <CartModal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
         />

@@ -5,11 +5,12 @@ interface QuantityControlProps {
   quantity: number
   onAdd: () => void
   onSub: () => void
+  className?: string
 }
 
 function QuantityControl(props: QuantityControlProps) {
   return (
-    <div className='flex items-center'>
+    <div className={'flex items-center' + props.className}>
       <Button
         variant='light'
         size='sm'

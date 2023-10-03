@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { LOGO_DARK, LOGO_LIGHT } from '../../consts'
 import ThemeSwitcher from '../common/ThemeSwitcher'
-import Cart from '../menu/Cart'
+import Cart from '../menu/CartModal'
 
 function Navigation() {
   const { theme } = useTheme()
