@@ -6,9 +6,10 @@ import { useAppSelector } from '../../hooks/store'
 import { useCartItemActions } from '../../hooks/useCartItemActions'
 import { type Category, type MenuItem } from '../../types'
 
-import { SearchIcon } from '../common/Icons'
+import { AmericanExpressIcon, ApplePayIcon, CarnetIcon, ContactlessIcon, DinnersClubIcon, DiscoverIcon, EdenredIcon, MasterCardIcon, SamsungPayIcon, SearchIcon, SodexoIcon, UpSiValeIcon, VisaIcon } from '../common/Icons'
 import CartModal from './CartModal'
 import Cart from './Cart'
+import Schedule from '../common/Schedule'
 
 const categories: Category[] = [
   {
@@ -350,8 +351,37 @@ function Menu() {
             </Card >
           </div>
 
-          <div className='flex-auto lg:w-40 hidden md:block max-w-xs'>
-            <Cart />
+          <div className='flex-auto lg:w-40 hidden md:block max-w-xs rounded-xl space-y-6'>
+            {
+              cartItems.length > 0
+                ? <Cart />
+                : <>
+
+                </>
+            }
+            <Card className='border-none bg-background/60 dark:bg-default-100'>
+              <CardBody className='flex space-y-4'>
+                <span
+                  className='text-2xl font-light text-center'
+                >
+                    Aceptamos pagos con tarjetas
+                </span>
+                <div className='flex flex-wrap items-center justify-center'>
+                  <ContactlessIcon className='w-16 mx-4 my-2'/>
+                  <ApplePayIcon className='w-16 mx-4 my-2'/>
+                  <SamsungPayIcon className='w-16 mx-4 my-2'/>
+                  <AmericanExpressIcon className='w-14 mx-4 my-2'/>
+                  <VisaIcon className='w-14 mx-4 my-2'/>
+                  <MasterCardIcon className='w-14 mx-4 my-2'/>
+                  <CarnetIcon className='w-14 mx-4 my-2'/>
+                  <UpSiValeIcon className='w-24 mx-4 my-2' />
+                  <DiscoverIcon className='w-24 mx-4 my-2' />
+                  <SodexoIcon className='w-20 mx-4 my-2' />
+                  <EdenredIcon className='w-16 mx-4 my-2'/>
+                  <DinnersClubIcon className='w-24 mx-4 my-2'/>
+                </div>
+              </CardBody>
+            </Card>
           </div>
 
         </div>
@@ -370,6 +400,8 @@ function Menu() {
           isOpen={isOpen}
           onOpenChange={onOpenChange}
         />
+
+        <Schedule/>
       </div >
     </div>
   )
