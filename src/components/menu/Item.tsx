@@ -37,7 +37,7 @@ function Item(props: ItemProps) {
         <div className='flex flex-col w-full space-y-2'>
           <div className='flex justify-between'>
             <Skeleton isLoaded={isLoaded} className='rounded-md'>
-              <span className='text-sm font-semibold text-gray-500 dark:text-gray-200'>{props.data.name}</span>
+              <span className='text-sm font-semibold text-gray-500 dark:text-gray-200 align-top'>{props.data.name}</span>
             </Skeleton>
             {
               (props.data.time != null)
