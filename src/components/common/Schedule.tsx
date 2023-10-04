@@ -12,13 +12,12 @@ function Schedule () {
   ]
 
   const currentDay = new Date().toLocaleDateString('es-MX', { weekday: 'long' })
-  console.log(currentDay)
 
   return (
     <div className='pt-10'>
       <div>
-        <h2 className="text-2xl font-semibold mb-4 text-center">Horario de Atención</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <h2 className="text-2xl mb-4 text-center">Horario de Atención</h2>
+        <div className="flex flex-wrap justify-center gap-4">
           {hours.map((item, index) => (
             <Button
               key={index}
@@ -27,14 +26,18 @@ function Schedule () {
               }`}
               color={
                 item.schedule === 'Cerrado'
-                  ? 'warning'
+                  ? 'danger'
                   : item.day.toLowerCase() === currentDay
                     ? 'primary'
                     : 'default'
               }
-              variant='light'
+              variant={
+                item.day.toLowerCase() === currentDay
+                  ? 'flat'
+                  : 'light'
+              }
             >
-              <p className="text-lg font-semibold">{item.day}</p>
+              <p className="text-lg font-medium">{item.day}</p>
               <p>{item.schedule}</p>
             </Button>
           ))}
