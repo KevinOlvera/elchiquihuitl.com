@@ -1,14 +1,4 @@
 {
-  "name": "menuonline.com",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
   "dependencies": {
     "@nextui-org/react": "2.1.13",
     "@reduxjs/toolkit": "1.9.6",
@@ -48,5 +38,15 @@
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2",
     "vite": "4.4.9"
-  }
+  },
+  "name": "elchiquihuitl.com",
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "type": "module",
+  "version": "1.0.0"
 }

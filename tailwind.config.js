@@ -42,6 +42,7 @@ export default {
   plugins: [
     nextui({
       addCommonColors: true,
+      defaultTheme: "light",
       themes: {
         light: {
           colors: {

@@ -90,65 +90,61 @@ function Slider(props: SliderProps) {
   }, [currentImage, timer])
 
   return (
-    <>
-      <div className="w-full p-4">
-        <div className="max-w-screen-xl mx-auto relative overflow-hidden">
-          <div
-            className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] bg-black bg-opacity-30 rounded-xl overflow-hidden"
-            onTouchStart={() => { setTouched(true) }}
+    <div className="w-full mx-auto relative overflow-hidden">
+      <div
+        className='w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[80vh] bg-black bg-opacity-30 rounded-xl overflow-hidden relative'
+        onTouchStart={() => { setTouched(true) }}
+      >
+
+        {
+          props.images.map((image, index) => (
+            <img
+              key={'slider-image-' + index}
+              className="absolute inset-0 w-full h-full object-cover object-center transform duration-300 ease-in-out"
+              src={image + '?' + size}
+              style={{
+                opacity: currentImage === index ? 1 : 0,
+                transitionProperty: 'opacity',
+                pointerEvents: 'none'
+              }}
+            />
+          ))
+        }
+
+        <button
+          onClick={() => { prevSlide() }}
+          className='text-gray-100 transition duration-500 ease-in-out p-0 m-0 focus:outline-none opacity-50 hover:opacity-100 hover:scale-110 transform absolute inset-y-0 left-0 z-10 px-4 py-6'
+        >
+          <ChevronLeftIcon />
+        </button>
+
+        <button
+          onClick={() => { nextSlide() }}
+          className='text-gray-100 transition duration-500 ease-in-out p-0 m-0 focus:outline-none opacity-50 hover:opacity-100 hover:scale-110 transform absolute inset-y-0 right-0 z-10 px-4 py-6'
+        >
+          <ChevronRightIcon />
+        </button>
+
+        <div className="absolute inset-x-0 bottom-0 flex justify-center items-center space-x-2 m-4">
+          <button
+            className='text-gray-100 transition duration-500 ease-in-out p-0 m-0 focus:outline-none opacity-50 hover:opacity-100 hover:scale-110 transform'
+            onClick={() => { handleTimer() }}
           >
-
-            {
-              props.images.map((image, index) => (
-                <img
-                  key={'slider-image-' + index}
-                  className="absolute inset-0 w-full h-full object-cover object-center transform duration-300 ease-in-out"
-                  src={image + '?' + size}
-                  style={{
-                    opacity: currentImage === index ? 1 : 0,
-                    transitionProperty: 'opacity',
-                    pointerEvents: 'none'
-                  }}
-                />
-              ))
-            }
-
+            {!timer ? <PlayCircleIcon className='w-5 h-5' /> : <PauseCircleIcon className='w-5 h-5' />}
+          </button>
+          {range(props.images.length).map((index) => (
             <button
-              onClick={() => { prevSlide() }}
-              className="absolute inset-y-0 left-0 z-10 px-4 py-6 text-white bg-gradient-to-r from-black/10 to-transparent hover:from-black/20 hover:to-transparent focus:outline-none"
-            >
-              <ChevronLeftIcon />
-            </button>
-
-            <button
-              onClick={() => { nextSlide() }}
-              className="absolute inset-y-0 right-0 z-10 px-4 py-6 text-white bg-gradient-to-l from-black/10 to-transparent hover:from-black/20 hover:to-transparent focus:outline-none"
-            >
-              <ChevronRightIcon />
-            </button>
-
-            <div className="absolute inset-x-0 bottom-0 flex justify-center items-center space-x-2 m-4">
-              <button
-                className='text-gray-100 transition duration-500 ease-in-out p-0 m-0 focus:outline-none opacity-50 hover:opacity-100 hover:scale-110 transform'
-                onClick={() => { handleTimer() }}
-              >
-                {!timer ? <PlayCircleIcon className='w-5 h-5' /> : <PauseCircleIcon className='w-5 h-5' />}
-              </button>
-              {range(props.images.length).map((index) => (
-                <button
-                  key={index}
-                  className="w-6 h-1 bg-gray-100 rounded transition duration-500 ease-in-out"
-                  onClick={() => { goToSlide(index) }}
-                  style={{
-                    opacity: currentImage === index ? 1 : 0.5
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+              key={index}
+              className="w-6 h-1 bg-gray-100 transition duration-500 ease-in-out p-0 m-0 focus:outline-none opacity-50 hover:opacity-100 hover:scale-110 transform rounded"
+              onClick={() => { goToSlide(index) }}
+              style={{
+                opacity: currentImage === index ? 1 : 0.5
+              }}
+            />
+          ))}
         </div>
-      </div >
-    </>
+      </div>
+    </div>
   )
 }
 

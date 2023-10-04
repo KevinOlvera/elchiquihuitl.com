@@ -1,11 +1,11 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, useDisclosure } from '@nextui-org/react'
 
-import { ShoppingCartIcon } from '../common/Icons'
+import { FacebookIcon, InstagramIcon, ShoppingCartIcon, WhatsAppIcon } from '../common/Icons'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { LOGO_DARK, LOGO_LIGHT } from '../../consts'
 import ThemeSwitcher from '../common/ThemeSwitcher'
-import Cart from '../menu/Cart'
+import Cart from '../menu/CartModal'
 
 function Navigation() {
   const { theme } = useTheme()
@@ -36,7 +36,7 @@ function Navigation() {
 
   return (
     <>
-      <Navbar isBlurred={true} isBordered={false}>
+      <Navbar isBlurred={true} isBordered={true}>
         <NavbarContent className="md:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
@@ -50,7 +50,7 @@ function Navigation() {
           </NavbarBrand>
         </NavbarContent>
 
-        <NavbarContent className="hidden md:flex">
+        <NavbarContent className="hidden md:flex" justify='start'>
           <NavbarBrand>
             <img
               className="h-10 w-auto pointer-events-none"
@@ -60,7 +60,7 @@ function Navigation() {
         </NavbarContent>
 
         <NavbarContent className="hidden md:flex gap-4 md:pl-4" justify="center">
-          <NavbarItem isActive>
+          <NavbarItem>
             <Link href="#" aria-current="page" color="warning">
               Menú
             </Link>
@@ -77,10 +77,49 @@ function Navigation() {
           </NavbarItem>
         </NavbarContent>
 
-        <NavbarContent justify="end">
+        <NavbarContent justify="end" className='md:hidden'>
           <NavbarItem>
             <Button isIconOnly color="primary" variant="flat" onPress={onOpen}>
               <ShoppingCartIcon />
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+
+        <NavbarContent justify="end" className='hidden md:flex'>
+          <NavbarItem className='space-x-1'>
+            <Button
+              isIconOnly
+              as={Link}
+              variant='light'
+              href='https://www.instagram.com/elchiquihuitl/'
+              target='_blank'
+            >
+              <InstagramIcon />
+            </Button>
+
+            <Button
+              isIconOnly
+              as={Link}
+              variant='light'
+              href='https://www.facebook.com/elchiquihuitl'
+              target='_blank'
+            >
+              <FacebookIcon />
+            </Button>
+
+            <Button
+              isIconOnly
+              as={Link}
+              variant='light'
+              href='https://wa.me/525515755550'
+              target='_blank'
+            >
+              <WhatsAppIcon />
+            </Button>
+          </NavbarItem>
+          <NavbarItem>
+            <Button color="primary" variant="flat">
+              Login
             </Button>
           </NavbarItem>
         </NavbarContent>

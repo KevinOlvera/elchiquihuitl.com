@@ -8,7 +8,7 @@ import { store } from '../../store'
 function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider>
-      <NextThemesProvider attribute='class' defaultTheme='dark'>
+      <NextThemesProvider attribute='class' defaultTheme='light'>
         <Provider store={store}>
           <BrowserRouter>
             {children}
