@@ -34,6 +34,7 @@ module.exports = {
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/semi": ["error", "never"],
     "@typescript-eslint/quotes": ["error", "single"],
+    "@typescript-eslint/triple-slash-reference": "off",
 
     /* "prettier/prettier": [
       "error",
