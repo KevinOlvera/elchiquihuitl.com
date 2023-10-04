@@ -10,7 +10,7 @@ interface QuantityControlProps {
 
 function QuantityControl(props: QuantityControlProps) {
   return (
-    <div className={'flex items-center' + props.className}>
+    <div className={'flex items-center ' + props.className}>
       <Button
         variant='light'
         size='sm'
