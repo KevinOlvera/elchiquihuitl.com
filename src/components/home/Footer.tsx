@@ -3,7 +3,7 @@ import { FacebookIcon, InstagramIcon, TikTokIcon, WhatsAppIcon, YouTubeIcon } fr
 
 function Footer() {
   return (
-    <footer className="p-4 flex flex-col space-y-4">
+    <footer className="px-4 py-12 flex flex-col space-y-4">
       <div className='flex space-x-4 justify-center pb-4'>
         <Button
           isIconOnly

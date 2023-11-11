@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Button, Card, CardBody, Divider, Input, Tab, Tabs, useDisclosure } from '@nextui-org/react'
-
-import Item from './Item'
+import { SearchIcon, ContactlessIcon, ApplePayIcon, SamsungPayIcon, AmericanExpressIcon, VisaIcon, MasterCardIcon, CarnetIcon, UpSiValeIcon, DiscoverIcon, SodexoIcon, EdenredIcon, DinnersClubIcon } from '../common/Icons'
+import Cart from '../menu/Cart'
+import CartModal from '../menu/CartModal'
+import Item from '../menu/Item'
 import { useAppSelector } from '../../hooks/store'
 import { useCartItemActions } from '../../hooks/useCartItemActions'
 import { type MenuItem } from '../../types'
-
-import { AmericanExpressIcon, ApplePayIcon, CarnetIcon, ContactlessIcon, DinnersClubIcon, DiscoverIcon, EdenredIcon, MasterCardIcon, SamsungPayIcon, SearchIcon, SodexoIcon, UpSiValeIcon, VisaIcon } from '../common/Icons'
-import CartModal from './CartModal'
-import Cart from './Cart'
 import Schedule from '../common/Schedule'
 import { type Category } from '../../models/category'
 
@@ -97,7 +95,7 @@ const data: MenuItem[] = [
   {
     id: '5',
     name: 'Hamburguesa de Champiñones',
-    description: 'Deliciosa hamburguesa con champiñones 100% de primera calidad',
+    description: 'Deliciosa hamburguesa con Champiñones 100% de primera calidad',
     price: 100.00,
     image: 'https://cdn.sanity.io/images/czqk28jt/prod_bk_us/60712f81a07316d3300b65823ab68b59def70c8e-1333x1333.png?w=1800&q=80&fit=max&auto=format',
     category: '0ae101ac-5c10-11ee-8c99-0242ac120002',
@@ -245,6 +243,20 @@ function Menu() {
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>(data)
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === '') {
+      setCurrentCategory(categories[0].id)
+      return
+    }
+    setSearch(e.target.value)
+    setCurrentCategory('filter')
+  }
+
+  const handleClearSearch = () => {
+    setSearch('')
+    setCurrentCategory(categories[0].id)
+  }
+
   const filterByCategory = (category: string) => {
     setMenuItems(data.filter((item) => item.category === category))
   }
@@ -268,6 +280,23 @@ function Menu() {
     }
   }, [currentCategory, search])
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true)
+      } else {
+        setIsMobile(false)
+      }
+    }
+    console.log(isMobile)
+    window.addEventListener('load', handleResize, false)
+    window.addEventListener('resize', handleResize, false)
+  }, [
+    window.innerWidth
+  ])
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const cartItems = useAppSelector((state) => state.cartItems)
@@ -275,136 +304,137 @@ function Menu() {
   const { addCartItem, subCartItem } = useCartItemActions()
 
   return (
-    <div className='w-full'>
-      <div className="flex flex-col py-6 space-y-6">
-        <Tabs
-          aria-label="Categories tabs"
-          color='primary'
-          variant='solid'
-          size='md'
-          className='overflow-x-auto flex w-full justify-center'
-          disabledKeys={
-            categories.filter((category) => category.status === 'unavailable').map((category) => category.id)
-          }
-          onSelectionChange={(item) => { setCurrentCategory(item.toString()) }}
-          defaultSelectedKey={categories[0].id}
-        >
-          <Tab
-            key={'filter'}
-            title={<SearchIcon className='w-4 h-4' />}
+    <>
+      <main className='flex flex-col gap-4'>
+        <section className="py-6 space-y-6 px-4 sm:px-8 md:px-16 lg:px-32">
+
+          <div
+            className='grid grid-cols-12 gap-4'
           >
-          </Tab>
-          {
-            categories.map((category) => (
+            <Tabs
+              color='primary'
+              variant='solid'
+              size='md'
+              className='overflow-x-auto flex w-full justify-center col-span-12 md:col-span-8'
+              disabledKeys={
+                categories.filter((category) => category.status === 'unavailable').map((category) => category.id)
+              }
+              onSelectionChange={(item) => { setCurrentCategory(item.toString()) }}
+              selectedKey={currentCategory}
+            >
               <Tab
-                key={category.id}
-                title={category.name}
+                key={'filter'}
+                title={<SearchIcon className='w-4 h-4' />}
               >
               </Tab>
-            ))
-          }
-          <Tab
-            key={'all'}
-            title={'Todos'}
-          >
-          </Tab>
-        </Tabs>
+              {
+                categories.map((category) => (
+                  <Tab
+                    key={category.id}
+                    title={category.name}
+                  >
+                  </Tab>
+                ))
+              }
+              <Tab
+                key={'all'}
+                title={'Todos'}
+              >
+              </Tab>
+            </Tabs>
 
-        {
-          currentCategory === 'filter'
-            ? <Input
-              placeholder="Busca tu platillo favorito ..."
-              size="md"
-              /* startContent={<FunnelIcon size={18} />} */
-              type="search"
-              variant='flat'
-              onChange={(e) => { setSearch(e.target.value) }}
-              value={search}
-              className='w-full'
-            />
+            {((isMobile && currentCategory === 'filter') || !isMobile) && (
+              <Input
+                placeholder="Busca tu platillo favorito ..."
+                size="md"
+                startContent={!isMobile && <SearchIcon size={18} />}
+                type="text"
+                variant='flat'
+                onChange={handleSearch}
+                className='col-span-12 md:col-span-4'
+                onClear={handleClearSearch}
+              />
+            ) }
 
-            : ''
-        }
+            <div className='col-span-12 md:col-span-8'>
+              <Card isBlurred className='border-none bg-background/60 dark:bg-default-100'>
+                <CardBody className='flex space-y-4'>
+                  {
+                    menuItems.length === 0
+                      ? (<span>No se encontraron resultados</span>)
+                      : (
+                        menuItems.map((item, index) => (
+                          <div key={'page-item-' + item.name.replace(' ', '-').toLowerCase()}>
+                            <Item
+                              data={item}
+                              quantity={cartItems.find((cartItem) => cartItem.name === item.name)?.quantity ?? 0}
+                              onAdd={() => { addCartItem(item) }}
+                              onRemove={() => { subCartItem(item) }}
+                            />
+                            {index < menuItems.length - 1 && <Divider className="mt-6 mb-2" />}
+                          </div>
+                        ))
+                      )
+                  }
+                </CardBody>
+              </Card >
+            </div>
 
-        <div className="flex flex-row space-x-6">
+            <div className='hidden md:flex flex-col gap-4 rounded-xl col-span-12 md:col-span-4'>
+              {
+                cartItems.length > 0
+                  ? <Cart />
+                  : <>
 
-          <div className='flex-auto'>
-            <Card isBlurred className='border-none bg-background/60 dark:bg-default-100'>
-              <CardBody className='flex space-y-4'>
-                {
-                  menuItems.length === 0
-                    ? (<span>No se encontraron resultados</span>)
-                    : (
-                      menuItems.map((item, index) => (
-                        <div key={'page-item-' + item.name.replace(' ', '-').toLowerCase()}>
-                          <Item
-                            data={item}
-                            quantity={cartItems.find((cartItem) => cartItem.name === item.name)?.quantity ?? 0}
-                            onAdd={() => { addCartItem(item) }}
-                            onRemove={() => { subCartItem(item) }}
-                          />
-                          {index < menuItems.length - 1 && <Divider className="mt-6 mb-2" />}
-                        </div>
-                      ))
-                    )
-                }
-              </CardBody>
-            </Card >
-          </div>
-
-          <div className='flex-auto lg:w-40 hidden md:block max-w-xs rounded-xl space-y-6'>
-            {
-              cartItems.length > 0
-                ? <Cart />
-                : <>
-
-                </>
-            }
-            <Card className='border-none bg-background/60 dark:bg-default-100'>
-              <CardBody className='flex space-y-4'>
-                <span
-                  className='text-2xl font-light text-center'
-                >
+                  </>
+              }
+              <Card className='border-none bg-background/60 dark:bg-default-100'>
+                <CardBody className='flex space-y-4'>
+                  <span
+                    className='text-2xl font-light text-center'
+                  >
                     Aceptamos pagos con tarjetas
-                </span>
-                <div className='flex flex-wrap items-center justify-center'>
-                  <ContactlessIcon className='w-16 mx-4 my-2'/>
-                  <ApplePayIcon className='w-16 mx-4 my-2'/>
-                  <SamsungPayIcon className='w-16 mx-4 my-2'/>
-                  <AmericanExpressIcon className='w-14 mx-4 my-2'/>
-                  <VisaIcon className='w-14 mx-4 my-2'/>
-                  <MasterCardIcon className='w-14 mx-4 my-2'/>
-                  <CarnetIcon className='w-14 mx-4 my-2'/>
-                  <UpSiValeIcon className='w-24 mx-4 my-2' />
-                  <DiscoverIcon className='w-24 mx-4 my-2' />
-                  <SodexoIcon className='w-20 mx-4 my-2' />
-                  <EdenredIcon className='w-16 mx-4 my-2'/>
-                  <DinnersClubIcon className='w-24 mx-4 my-2'/>
-                </div>
-              </CardBody>
-            </Card>
+                  </span>
+                  <div className='flex flex-wrap items-center justify-center gap-6'>
+                    <ContactlessIcon className='w-16'/>
+                    <ApplePayIcon className='w-16'/>
+                    <SamsungPayIcon className='w-16 '/>
+                    <AmericanExpressIcon className='w-14 '/>
+                    <VisaIcon className='w-14'/>
+                    <MasterCardIcon className='w-14 '/>
+                    <CarnetIcon className='w-14 '/>
+                    <UpSiValeIcon className='w-24 ' />
+                    <DiscoverIcon className='w-24 ' />
+                    <SodexoIcon className='w-20 ' />
+                    <EdenredIcon className='w-16 '/>
+                    <DinnersClubIcon className='w-24 '/>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+
           </div>
 
-        </div>
-
-        <Button
-          color='primary'
-          variant='flat'
-          size='lg'
-          className='w-full md:hidden flex'
-          onPress={onOpen}
-        >
+          <Button
+            color='primary'
+            variant='flat'
+            size='lg'
+            className='w-full md:hidden flex'
+            onPress={onOpen}
+          >
           Ver Resumen
-        </Button>
+          </Button>
 
-        <CartModal
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-        />
-
-        <Schedule/>
-      </div >
-    </div>
+          <CartModal
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+          />
+        </section >
+        <section className='py-16'>
+          <Schedule/>
+        </section>
+      </main>
+    </>
   )
 }
 
