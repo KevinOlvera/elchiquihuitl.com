@@ -5,7 +5,7 @@ import { Toaster, toast } from 'sonner'
 import { Analytics } from '@vercel/analytics/react'
 
 import Home from './components/home/Home'
-import Error from './components/home/Error'
+import Error from './components/common/Error'
 import Dashboard from './components/dashboard/Dashboard'
 import Menu from './components/home/Menu'
 import About from './components/home/About'
