@@ -14,34 +14,32 @@ function Schedule () {
   const currentDay = new Date().toLocaleDateString('es-MX', { weekday: 'long' })
 
   return (
-    <div className='pt-10'>
-      <div>
-        <h2 className="text-2xl mb-4 text-center">Horario de Atención</h2>
-        <div className="flex flex-wrap justify-center gap-4">
-          {hours.map((item, index) => (
-            <Button
-              key={index}
-              className={`flex  flex-col h-20 p-4 rounded-xl ${
-                item.day === 'Domingo' ? 'sm: col-span-2 md:col-span-3' : ''
-              }`}
-              color={
-                item.schedule === 'Cerrado'
-                  ? 'danger'
-                  : item.day.toLowerCase() === currentDay
-                    ? 'primary'
-                    : 'default'
-              }
-              variant={
-                item.day.toLowerCase() === currentDay
-                  ? 'flat'
-                  : 'light'
-              }
-            >
-              <p className="text-lg font-medium">{item.day}</p>
-              <p>{item.schedule}</p>
-            </Button>
-          ))}
-        </div>
+    <div>
+      <h2 className="text-2xl mb-4 text-center">Horario de Atención</h2>
+      <div className="flex flex-wrap justify-center gap-4">
+        {hours.map((item, index) => (
+          <Button
+            key={index}
+            className={`flex  flex-col h-20 p-4 rounded-xl ${
+              item.day === 'Domingo' ? 'sm: col-span-2 md:col-span-3' : ''
+            }`}
+            color={
+              item.schedule === 'Cerrado'
+                ? 'danger'
+                : item.day.toLowerCase() === currentDay
+                  ? 'primary'
+                  : 'default'
+            }
+            variant={
+              item.day.toLowerCase() === currentDay
+                ? 'flat'
+                : 'light'
+            }
+          >
+            <p className="text-lg font-medium">{item.day}</p>
+            <p>{item.schedule}</p>
+          </Button>
+        ))}
       </div>
     </div>
   )

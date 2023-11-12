@@ -4,11 +4,12 @@ import range from 'lodash/range'
 import { ChevronLeftIcon, ChevronRightIcon, PauseCircleIcon, PlayCircleIcon } from './Icons'
 
 // FIXME: The transition of the ChevronLeftIcon and ChevronRightIcon is not working properly
-// PENDING: Add a prop to change the size of the slider
 
 interface SliderProps {
   images: string[]
   time?: number | 5000
+  height?: number | 900
+  width?: number | 1600
 }
 
 function Slider(props: SliderProps) {
@@ -27,7 +28,7 @@ function Slider(props: SliderProps) {
   }
 
   /* const size = 'height=576&width=1024' */
-  const size = 'height=900&width=1600'
+  const size = `height=${props.height}&width=${props.width}`
 
   const [touched, setTouched] = useState(false)
 

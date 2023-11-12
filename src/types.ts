@@ -13,13 +13,24 @@ export enum Status {
   unavailable = 'unavailable'
 }
 
-export interface Category {
-  id: string
-  name: string
-  description: string
-  status: keyof typeof Status
-}
-
 export interface CartItem extends MenuItem {
   quantity: number
+}
+
+export interface Coupon {
+  id: string
+  title: string
+  description: string
+  code: string
+  image: string
+  terms: string
+  expiration: string
+}
+
+export interface Pagination {
+  currentPage: number
+  nextPage: number | null
+  prevPage: number | null
+  totalPages: number
+  totalRecords: number
 }

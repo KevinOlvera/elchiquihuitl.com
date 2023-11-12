@@ -1,19 +1,20 @@
-import { configureStore, type Middleware } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 
+import persistanceLocalStorageMiddleware from './middlewares/persistanceLocalStorageMiddleware'
+
+import authenticationReducer from './authentication/slice'
 import cartItemsReducer from './cartItems/slice'
-
-const persistanceLocalStorageMiddleware: Middleware =
-    (store) => (next) => (action) => {
-      next(action)
-      localStorage.setItem(
-        '_x_redux_CartItems',
-        JSON.stringify(store.getState())
-      )
-    }
+import usersReducer from './users/slice'
+import categoriesReducer from './categories/slice'
+import productsReducer from './products/slice'
 
 export const store = configureStore({
   reducer: {
-    cartItems: cartItemsReducer
+    authentication: authenticationReducer,
+    cartItems: cartItemsReducer,
+    users: usersReducer,
+    categories: categoriesReducer,
+    products: productsReducer
   },
   middleware: [persistanceLocalStorageMiddleware]
 })
