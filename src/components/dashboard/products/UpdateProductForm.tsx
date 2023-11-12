@@ -171,11 +171,11 @@ function UpdateProductForm(props: UpdateProductFormProps) {
         />
 
         {
-          categories.filter((category) => category.id === props.product.companyId).length > 0 && (
+          categories.filter((category) => category.id === props.product.categoryId).length > 0 && (
             <Select
               items={categories}
-              label="Empresa"
-              placeholder="Acme Inc."
+              label="Categoría"
+              placeholder="Categoría 1"
               variant="bordered"
               name='categoryId'
               isRequired
