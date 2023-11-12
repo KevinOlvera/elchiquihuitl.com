@@ -17,43 +17,57 @@ const categories: Category[] = [
     id: '0ae101ac-5c10-11ee-8c99-0242ac120002',
     name: 'Hamburguesas',
     description: 'Deliciosas hamburguesas con carne de res 100% de la parrilla a la mesa',
-    status: 'available'
+    status: 'available',
+    companyId: '0ae101ac-5c10-11ee-8c99-0242ac120002',
+    products: []
   },
   {
     id: '1ee0e01e-5c10-11ee-8c99-0242ac120002',
     name: 'Snacks',
     description: 'Deliciosos snacks para acompañar tus hamburguesas',
-    status: 'available'
+    status: 'available',
+    companyId: '0ae101ac-5c10-11ee-8c99-0242ac120002',
+    products: []
   },
   {
     id: '2bd3e99c-5c10-11ee-8c99-0242ac120002',
     name: 'Ensaladas',
     description: 'Deliciosas ensaladas preparadas con los mejores y más frescos ingredientes',
-    status: 'available'
+    status: 'available',
+    companyId: '0ae101ac-5c10-11ee-8c99-0242ac120002',
+    products: []
   },
   {
     id: '45b88c64-5c10-11ee-8c99-0242ac120002',
     name: 'Postres',
     description: 'Deliciosos postres tradicionales',
-    status: 'available'
+    status: 'available',
+    companyId: '0ae101ac-5c10-11ee-8c99-0242ac120002',
+    products: []
   },
   {
     id: '6bfbde12-5c10-11ee-8c99-0242ac120002',
     name: 'Bebidas',
     description: 'Deliciosas bebidas para acompañar tus hamburguesas',
-    status: 'available'
+    status: 'available',
+    companyId: '0ae101ac-5c10-11ee-8c99-0242ac120002',
+    products: []
   },
   {
     id: '77b03f6e-5c10-11ee-8c99-0242ac120002',
     name: 'Combos',
     description: 'Conoce nuestros combos para toda la familia',
-    status: 'unavailable'
+    status: 'unavailable',
+    companyId: '0ae101ac-5c10-11ee-8c99-0242ac120002',
+    products: []
   },
   {
     id: '93ea16be-5c10-11ee-8c99-0242ac120002',
     name: 'Promociones',
     description: 'Conoce nuestras promociones y ahorra conservando el mismo sabor',
-    status: 'unavailable'
+    status: 'unavailable',
+    companyId: '0ae101ac-5c10-11ee-8c99-0242ac120002',
+    products: []
   }
 ]
 
