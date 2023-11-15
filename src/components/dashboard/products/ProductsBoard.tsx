@@ -14,7 +14,6 @@ import UpdateProductForm from './UpdateProductForm'
 import DeleteProductForm from './DeleteProductForm'
 import { imageBaseUrl } from '../../../consts'
 import { uploadImage } from '../../../services/api/images'
-import { get } from 'lodash'
 
 function ProductsBoard() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
