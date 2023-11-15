@@ -51,7 +51,7 @@ function CreateProductForm(props: CreateProductFormProps) {
       }
     })
 
-    if (data.name === '' || data.description === '' || data.price === '' || data.image === '' || data.categoryId === '' || data.time === '' || data.calories === '' || data.companyId === '') {
+    if (data.name === '' || data.description === '' || data.price === '' || data.categoryId === '' || data.time === '' || data.calories === '' || data.companyId === '') {
       toast.error('Todos los campos son requeridos')
       console.error('Todos los campos son requeridos')
       console.groupEnd()
@@ -62,7 +62,7 @@ function CreateProductForm(props: CreateProductFormProps) {
       name: data.name,
       description: data.description,
       price: +data.price,
-      image: data.image,
+      image: '',
       categoryId: data.categoryId,
       time: +data.time,
       calories: +data.calories,
@@ -147,19 +147,18 @@ function CreateProductForm(props: CreateProductFormProps) {
             }
           />
         </div>
-        <Input
+        {/* <Input
           type="url"
           label="Imagen"
           variant='bordered'
           placeholder="example.com/image.png"
           name='image'
-          isRequired
           startContent={
             <div className="pointer-events-none flex items-center">
               <span className="text-default-400 text-small">https://</span>
             </div>
           }
-        />
+        /> */}
 
         <Select
           items={categories}

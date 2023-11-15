@@ -9,6 +9,7 @@ export const COMPANIES_ENDPOINT = '/api/companies'
 export const CATEGORIES_ENDPOINT = '/api/categories'
 export const PRODUCTS_ENDPOINT = '/api/products'
 export const LOGIN_ENDPOINT = '/api/login'
+export const IMAGES_ENDPOINT = '/api/images'
 
 export const api = axios.create({
   baseURL: API_URL

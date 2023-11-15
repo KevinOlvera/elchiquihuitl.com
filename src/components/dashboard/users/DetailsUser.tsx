@@ -42,12 +42,12 @@ function UserDetails (props: UserDetailsProps) {
 
   return (
     <div className='flex flex-col gap-4' >
-      <div className='h-[260px] w-full'>
+      <div className='h-[180px] w-full'>
         <Image
-          src={'https://picsur.kovin.dev/i/6fd5f47f-5c78-43c6-8b38-28b649977016.jpg?height=240&quality=100'}
+          src={'/images/user/6fd5f47f-5c78-43c6-8b38-28b649977016.jpg'}
           alt={props.user.name}
           isBlurred
-          className='w-auto object-cover rounded-md h-full relative'
+          className='w-auto object-cover rounded-md relative'
         />
         <Avatar
           src={`https://unavatar.io/${props.user.username}`}
@@ -57,6 +57,12 @@ function UserDetails (props: UserDetailsProps) {
           isBordered
           color={mapStatusToColor(status)}
           className='-top-8 left-6'
+          fallback={<UserIcon
+            className={
+              'text-' + mapStatusToColor(status) + '-600 w-8'
+            }
+          />}
+          showFallback
         />
       </div>
 

@@ -70,6 +70,20 @@ export async function updateStatusProduct(id: number, status: Product['status'])
   return response
 }
 
+export async function updateProductImage(id: number, imageId: string) {
+  const response = await api.patch(
+    `${PRODUCTS_ENDPOINT}/${id}`,
+    { image: imageId },
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+
+  return response
+}
+
 export async function deleteProduct (id: number) {
   const response = await api.delete(
     `${PRODUCTS_ENDPOINT}/${id}`,

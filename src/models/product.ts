@@ -5,7 +5,7 @@ export interface CreateProduct {
   name: string
   description: string
   price: number
-  image: string
+  image?: string
   categoryId: string
   time: number
   calories: number
@@ -16,7 +16,7 @@ export interface UpdateProduct {
   name: string
   description: string
   price: number
-  image: string
+  image?: string
   categoryId: string
   time: number
   calories: number
@@ -28,7 +28,7 @@ export interface Product {
   name: string
   description: string
   price: number
-  image: string
+  image?: string
   categoryId: string
   time: number
   rating: number

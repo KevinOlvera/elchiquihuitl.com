@@ -157,11 +157,12 @@ function Navigation() {
                     <Avatar
                       isBordered
                       as="button"
-                      className="transition-transform"
+                      className="transition-transform text-green-700"
                       color={mapStatusToColor(authentication.user.status)}
                       name={authentication.user.name}
                       size="sm"
                       src={`https://unavatar.io/${authentication.user.username}`}
+                      showFallback
                     />
                   </DropdownTrigger>
                   <DropdownMenu aria-label="Profile Actions" variant="flat">

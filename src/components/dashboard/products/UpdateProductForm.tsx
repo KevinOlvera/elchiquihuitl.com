@@ -66,7 +66,6 @@ function UpdateProductForm(props: UpdateProductFormProps) {
       name: data.name,
       description: data.description,
       price: +data.price,
-      image: data.image,
       categoryId: data.categoryId,
       time: +data.time,
       calories: +data.calories,
@@ -155,20 +154,6 @@ function UpdateProductForm(props: UpdateProductFormProps) {
             defaultValue={props.product.time.toString()}
           />
         </div>
-        <Input
-          type="url"
-          label="Imagen"
-          variant='bordered'
-          placeholder="example.com/image.png"
-          name='image'
-          isRequired
-          startContent={
-            <div className="pointer-events-none flex items-center">
-              <span className="text-default-400 text-small">https://</span>
-            </div>
-          }
-          defaultValue={props.product.image}
-        />
 
         {
           categories.filter((category) => category.id === props.product.categoryId).length > 0 && (

@@ -1,17 +1,20 @@
 import { Button, Chip, Input, Image, Modal, ModalBody, ModalContent, Pagination, Switch, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, useDisclosure } from '@nextui-org/react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { type Product } from '../../../models/product'
 import { type ProductsState } from '../../../store/products/slice'
 import { useAppSelector } from '../../../hooks/store'
 import { useProductActions } from '../../../hooks/useProductActions'
 import { useDebounce } from '../../../hooks/useDebounce'
-import { getProducts, updateStatusProduct } from '../../../services/api/products'
+import { getProducts, updateProductImage, updateStatusProduct } from '../../../services/api/products'
 import { toastWrapper } from '../../../services/api'
 import { PencilSquareIcon, PlusIcon, SearchIcon, TrashIcon } from '../../common/Icons'
 import CreateProductForm from './CreateProductForm'
 import StarRating from '../../common/StarRating'
 import UpdateProductForm from './UpdateProductForm'
 import DeleteProductForm from './DeleteProductForm'
+import { imageBaseUrl } from '../../../consts'
+import { uploadImage } from '../../../services/api/images'
+import { get } from 'lodash'
 
 function ProductsBoard() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -70,6 +73,41 @@ function ProductsBoard() {
     console.groupEnd()
   }
 
+  const inputFile = useRef<HTMLInputElement | null>(null)
+
+  const onImageClick = (data: Product) => {
+    inputFile.current?.click()
+    setProduct(data)
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files === null) return
+    const file = event.target.files[0]
+    if (file === null) return
+    if (product === undefined) return
+    console.group('[ProductsBoard][handleFileChange]')
+    console.log('file', file)
+    console.log('product', product)
+    void toastWrapper(uploadImage(file))
+      .then((result) => {
+        console.log('uploadImage', result)
+        const { image } = result.data
+
+        void toastWrapper(updateProductImage(product.id, image))
+          .then((result) => {
+            console.log('updateProductImage', result)
+            void getProducts()
+              .then((response) => {
+                console.log('getProducts', response)
+                const { data, pagination } = response.data
+                setProducts(data)
+                setPagination(pagination)
+              })
+          })
+      })
+    console.groupEnd()
+  }
+
   return (
     <div
       className='flex flex-col px-6 pt-6 gap-6 w-full h-full'
@@ -110,11 +148,12 @@ function ProductsBoard() {
                     className='flex flex-row items-center gap-2'
                   >
                     <Image
-                      src={product.image}
+                      src={product.image !== '' ? imageBaseUrl + '/' + product.image + '.png' : '/images/default.jpg'}
                       alt={product.name}
                       radius='lg'
-                      className='border-2 border-default-100 w-10 h-10 object-cover'
-                      fallbackSrc={'https://via.placeholder.com/40'}
+                      onClick={() => { onImageClick(product) }}
+                      className='border-2 border-default-100 w-10 h-10 object-scale-down'
+                      isZoomed
                     />
                     {product.name}
                   </div>
@@ -197,6 +236,8 @@ function ProductsBoard() {
           onChange={(page) => { setCurrentPage(page) }}
         />
       </div>
+
+      <input type='file' id='file' ref={inputFile} style={{ display: 'none' }} onChange={handleFileChange}/>
 
     </div>
   )

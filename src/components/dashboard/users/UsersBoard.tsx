@@ -11,7 +11,7 @@ import { useDebounce } from '../../../hooks/useDebounce'
 import { type User } from '../../../models/users'
 import { mapStatusToColor } from '../../../consts'
 
-import { EyeIcon, PencilSquareIcon, PlusIcon, SearchIcon, TrashIcon } from '../../common/Icons'
+import { EyeIcon, PencilSquareIcon, PlusIcon, SearchIcon, TrashIcon, UserIcon } from '../../common/Icons'
 import { type UsersState } from '../../../store/users/slice'
 import { useAppSelector } from '../../../hooks/store'
 import { useUserActions } from '../../../hooks/useUserActions'
@@ -99,7 +99,12 @@ function UsersBoard() {
               <TableRow key={user.id}>
                 <TableCell>
                   <UserNextUi
-                    avatarProps={{ radius: 'lg', src: `https://unavatar.io/${user.username}` }}
+                    avatarProps={{
+                      radius: 'lg',
+                      src: `https://unavatar.io/${user.username}`,
+                      fallback: (<UserIcon className='w-5'/>),
+                      showFallback: true
+                    }}
                     description={user.email}
                     name={user.name}
                   >

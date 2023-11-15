@@ -4,7 +4,7 @@ import AsidePanel from '../../components/dashboard/AsidePanel'
 import { Badge, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from '@nextui-org/react'
 import { useAppSelector } from '../../hooks/store'
 import { useAuthenticationActions } from '../../hooks/useAuthenticationActions'
-import { BellIcon, LifeBuoyIcon } from '../../components/common/Icons'
+import { BellIcon, LifeBuoyIcon, UserIcon } from '../../components/common/Icons'
 import { type AuthenticatedUser } from '../../models/users'
 
 function DashboardTemplate() {
@@ -56,7 +56,11 @@ function DashboardTemplate() {
           <Dropdown>
             <DropdownTrigger>
               <User
-                avatarProps={{ src: `https://unavatar.io/${authentication.user?.username}` }}
+                avatarProps={{
+                  src: `https://unavatar.io/${authentication.user?.username}`,
+                  fallback: (<UserIcon className='w-5'/>),
+                  showFallback: true
+                }}
                 description={authentication.user?.email}
                 name={authentication.user?.username}
                 className='cursor-pointer hover:text-primary transition'

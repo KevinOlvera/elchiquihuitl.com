@@ -117,7 +117,7 @@ function Home() {
       </section>
       <section className='grid lg:grid-cols-6 px-4 sm:px-8 md:px-16 lg:px-32 lg:ml-28'>
         <img
-          src="https://picsur.kovin.dev/i/cfb28ae4-e9bf-4c52-a622-3e89d98606de.jpg"
+          src="/images/home/a9dc7eb2-9c80-4a91-bb3e-25581e74ec7b.jpg"
           alt="delivery"
           className='object-center col-span-3 pointer-events-none'
         />

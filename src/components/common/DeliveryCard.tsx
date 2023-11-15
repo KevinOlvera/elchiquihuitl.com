@@ -28,7 +28,7 @@ function DeliveryCard({ ...restProps }) {
             className={'items-center justify-center flex rounded-lg shadow-md border-2 border-transparent transition-all duration-300 ' + (deliveryServiceSelected === DeliveryService.uber_eats ? 'border-citron-600' : '')}
             onClick={() => { setDeliveryServiceSelected(DeliveryService.uber_eats) }}
           >
-            <img src="https://picsur.kovin.dev/i/a6d9f664-b010-4f81-b1f1-49d49c3691f6.png" alt="Uber Eats Logo"
+            <img src="/images/delivery/a6d9f664-b010-4f81-b1f1-49d49c3691f6.png" alt="Uber Eats Logo"
               className='h-16 py-4'
             />
           </button>
@@ -37,7 +37,7 @@ function DeliveryCard({ ...restProps }) {
             onClick={() => { setDeliveryServiceSelected(DeliveryService.rappi) }}
           >
             <img
-              src="https://picsur.kovin.dev/i/31d82add-790b-4e55-89eb-e0ff2dbfb66a.png"
+              src="/images/delivery/31d82add-790b-4e55-89eb-e0ff2dbfb66a.png"
               alt="Rappi Logo"
               className='h-16 py-4'
             />
@@ -47,7 +47,7 @@ function DeliveryCard({ ...restProps }) {
             onClick={() => { setDeliveryServiceSelected(DeliveryService.didi_food) }}
           >
             <img
-              src="https://picsur.kovin.dev/i/99bf5fbc-ba84-4046-bcb5-d534dca77de2.png"
+              src="/images/delivery/99bf5fbc-ba84-4046-bcb5-d534dca77de2.png"
               alt="Uber Eats Logo"
               className='h-16 py-2'
             />
